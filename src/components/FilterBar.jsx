@@ -1,12 +1,13 @@
 import { CATEGORIES, CATEGORY_COLORS } from '../data/activities'
 
 /**
- * FilterBar — sticky bar with search input, category pills, and family toggle.
+ * FilterBar — sticky bar with search input, category pills, and special toggles.
  *
  * Props:
  *   searchQuery      / onSearchChange
  *   activeCategory   / onCategoryToggle
  *   familyOnly       / onFamilyToggle
+ *   transportMode    — 'all' | 'walk' | 'car'  / onTransportChange
  *   view             — 'list' | 'map'
  *   onViewChange
  *   resultCount
@@ -16,6 +17,7 @@ export default function FilterBar({
   searchQuery, onSearchChange,
   activeCategory, onCategoryToggle,
   familyOnly, onFamilyToggle,
+  transportMode, onTransportChange,
   view, onViewChange,
   resultCount, totalCount,
 }) {
@@ -117,6 +119,27 @@ export default function FilterBar({
           >
             👨‍👩‍👧 Con niños
           </button>
+
+          {/* Transport 3-way toggle */}
+          <div className="flex rounded-full border border-stone-300 overflow-hidden shrink-0 bg-white text-sm ml-1">
+            {[
+              { value: 'all',  label: 'Todos' },
+              { value: 'walk', label: '🚶 A pie' },
+              { value: 'car',  label: '🚗 Coche' },
+            ].map(({ value, label }) => (
+              <button
+                key={value}
+                onClick={() => onTransportChange(value)}
+                className={`px-3 py-1.5 font-medium transition-colors whitespace-nowrap border-r border-stone-200 last:border-r-0 ${
+                  transportMode === value
+                    ? 'bg-stone-800 text-white'
+                    : 'text-stone-600 hover:bg-stone-50'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Result count */}
@@ -126,6 +149,8 @@ export default function FilterBar({
             : `${resultCount} de ${totalCount}`}
           {activeCategory && ` · ${CATEGORIES[activeCategory].label}`}
           {familyOnly && ' · Solo familiares'}
+          {transportMode === 'walk' && ' · A pie'}
+          {transportMode === 'car'  && ' · En coche'}
         </p>
       </div>
     </div>

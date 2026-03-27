@@ -13,6 +13,7 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState(null)
   const [searchQuery,    setSearchQuery]    = useState('')
   const [familyOnly,     setFamilyOnly]     = useState(false)
+  const [transportMode,  setTransportMode]  = useState('all') // 'all' | 'walk' | 'car'
   const [view,           setView]           = useState('list') // 'list' | 'map'
   const [focusedId,      setFocusedId]      = useState(null)  // activity to focus on map
 
@@ -49,6 +50,9 @@ export default function App() {
     if (familyOnly) {
       result = result.filter(a => a.familyFriendly)
     }
+    if (transportMode !== 'all') {
+      result = result.filter(a => a.transport === transportMode)
+    }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim()
       result = result.filter(a =>
@@ -60,7 +64,7 @@ export default function App() {
     }
 
     return result
-  }, [activeCategory, familyOnly, searchQuery])
+  }, [activeCategory, familyOnly, transportMode, searchQuery])
 
   // ── Map interaction ────────────────────────────────────────────────────────
   const handlePinClick = useCallback((activity) => {
@@ -150,11 +154,12 @@ export default function App() {
 
       {/* ── Filter bar ─────────────────────────────────────────────────────── */}
       <FilterBar
-        searchQuery={searchQuery}      onSearchChange={setSearchQuery}
-        activeCategory={activeCategory} onCategoryToggle={handleCategoryToggle}
-        familyOnly={familyOnly}         onFamilyToggle={() => setFamilyOnly(f => !f)}
-        view={view}                     onViewChange={setView}
-        resultCount={filtered.length}  totalCount={activities.length}
+        searchQuery={searchQuery}        onSearchChange={setSearchQuery}
+        activeCategory={activeCategory}  onCategoryToggle={handleCategoryToggle}
+        familyOnly={familyOnly}          onFamilyToggle={() => setFamilyOnly(f => !f)}
+        transportMode={transportMode}    onTransportChange={setTransportMode}
+        view={view}                      onViewChange={setView}
+        resultCount={filtered.length}    totalCount={activities.length}
       />
 
       {/* ── Main content ───────────────────────────────────────────────────── */}

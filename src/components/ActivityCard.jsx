@@ -67,9 +67,19 @@ export default function ActivityCard({ activity, weatherHighlight, onPinClick })
               👨‍👩‍👧 familiar
             </span>
           )}
+          {activity.hasKidsPlayArea && (
+            <span className="text-xs bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-0.5 rounded-full font-medium">
+              🛝 zona de juegos
+            </span>
+          )}
           {activity.indoor && (
             <span className="text-xs bg-sky-50 text-sky-700 border border-sky-100 px-2 py-0.5 rounded-full">
               🏠 interior
+            </span>
+          )}
+          {activity.transport === 'walk' && (
+            <span className="text-xs bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded-full">
+              🚶 a pie
             </span>
           )}
           {activity.tags.map(tag => (

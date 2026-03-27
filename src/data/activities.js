@@ -3,14 +3,14 @@
  *
  * Cómo añadir una actividad nueva:
  * 1. Copia un objeto existente de la misma categoría
- * 2. Rellena todos los campos (id debe ser único)
- * 3. `coords: [lat, lng]` — coordenadas del lugar principal (Google Maps → clic derecho → coordenadas)
- * 4. `familyFriendly: true` si es apto para niños o grupos familiares
- * 5. `indoor: true` si es una actividad de interior (útil para días de lluvia)
- * 6. `category` debe coincidir con una clave de CATEGORIES
- *
- * Categorías disponibles:
- *   'naturaleza' | 'gastronomia' | 'cultura' | 'deporte' | 'ninos' | 'eventos'
+ * 2. `id`             — string único en kebab-case
+ * 3. `coords`         — [lat, lng] del lugar principal
+ * 4. `category`       — una clave de CATEGORIES
+ * 5. `familyFriendly` — true si es apto para grupos con niños
+ * 6. `hasKidsPlayArea`— true si tiene zona de juegos infantil física
+ * 7. `indoor`         — true si la actividad es principalmente de interior
+ * 8. `transport`      — 'walk' (a pie desde un centro urbano) | 'car' (requiere coche)
+ * 9. `season`         — 'todo el año' | 'primavera' | 'verano' | 'otoño' | 'invierno' | 'primavera-verano'
  */
 
 export const CATEGORIES = {
@@ -22,7 +22,6 @@ export const CATEGORIES = {
   eventos:     { label: 'Eventos y agenda',      emoji: '📅' },
 };
 
-// Colour palette per category — used in cards, map pins, filter buttons
 export const CATEGORY_COLORS = {
   naturaleza:  { bg: 'bg-green-100',  text: 'text-green-800',  border: 'border-green-200',  active: 'bg-green-700',  stripe: 'bg-green-600',  pin: '#2d6a4f' },
   gastronomia: { bg: 'bg-amber-50',   text: 'text-amber-800',  border: 'border-amber-200',  active: 'bg-amber-700',  stripe: 'bg-amber-600',  pin: '#b45309' },
@@ -47,7 +46,9 @@ export const activities = [
     tags: ['bici', 'senderismo', 'familias', 'fácil'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'ruta-del-cares',
@@ -60,7 +61,9 @@ export const activities = [
     tags: ['senderismo', 'media dificultad', 'espectacular', 'Picos de Europa'],
     season: 'primavera-verano',
     familyFriendly: false,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'lago-enol',
@@ -69,11 +72,13 @@ export const activities = [
     location: 'Cangas de Onís',
     coords: [43.262, -4.995],
     description:
-      'El Enol y La Ercina a 1.100 m. En temporada alta el acceso en coche está cortado — coger el autobús lanzadera. Fuera de temporada el silencio es total.',
+      'El Enol y La Ercina a 1.100 m. En temporada alta el acceso en coche está cortado — coger el autobús lanzadera desde Covadonga. Fuera de temporada el silencio es total.',
     tags: ['Picos de Europa', 'paisaje', 'fácil', 'senderismo corto'],
     season: 'primavera-verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'playa-gulpiyuri',
@@ -86,7 +91,9 @@ export const activities = [
     tags: ['playa', 'única en Europa', 'marea alta', 'a pie'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'playa-ballota',
@@ -99,7 +106,9 @@ export const activities = [
     tags: ['playa virgen', 'sin masificación', 'acantilados', 'andando'],
     season: 'verano',
     familyFriendly: false,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'playa-toro',
@@ -112,7 +121,9 @@ export const activities = [
     tags: ['playa virgen', 'arena blanca', 'poco conocida'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'bosque-muniellos',
@@ -125,7 +136,9 @@ export const activities = [
     tags: ['reserva natural', 'permiso previo', 'robledal', 'fauna'],
     season: 'primavera-verano',
     familyFriendly: false,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'playa-san-antolin',
@@ -138,7 +151,9 @@ export const activities = [
     tags: ['playa', 'familias', 'río', 'camping cerca'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'pena-ubiña',
@@ -151,7 +166,9 @@ export const activities = [
     tags: ['alta montaña', 'difícil', 'verano', 'experienced'],
     season: 'verano',
     familyFriendly: false,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'desfiladero-hermida',
@@ -164,7 +181,9 @@ export const activities = [
     tags: ['cañón', 'río', 'baño', 'románico'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
 
   // ─── GASTRONOMÍA LOCAL ─────────────────────────────────────────────────────
@@ -180,7 +199,9 @@ export const activities = [
     tags: ['mercado', 'queso', 'embutidos', 'sábados'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'walk',  // centro de Oviedo
   },
   {
     id: 'mercado-sur-gijon',
@@ -193,7 +214,9 @@ export const activities = [
     tags: ['mercado', 'marisco', 'tapas', 'pescado fresco'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'walk',  // barrio urbano de Gijón
   },
   {
     id: 'espicha',
@@ -206,7 +229,9 @@ export const activities = [
     tags: ['sidra', 'tradición', 'marzo-mayo', 'llagar'],
     season: 'primavera',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'car',  // llagares suelen ser fuera de los centros urbanos
   },
   {
     id: 'llagar-trabanco',
@@ -219,7 +244,24 @@ export const activities = [
     tags: ['llagar', 'sidra', 'visita guiada', 'D.O.P.'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'car',  // Sariego, fuera de núcleo urbano
+  },
+  {
+    id: 'llagar-de-titi',
+    title: 'El Llagar de Titi',
+    category: 'gastronomia',
+    location: 'Gijón (Cabueñes)',
+    coords: [43.517, -5.621],
+    description:
+      'Sidrería-restaurante de los de siempre en el barrio de Cabueñes. Cocina asturiana contundente — el cachopo y el pote no fallan. Muy conocido entre familias gijonesas por tener zona de juegos exterior donde los críos desaparecen mientras los mayores estiran la sobremesa con una botella.',
+    tags: ['sidrería', 'cachopo', 'pote', 'sobremesa larga'],
+    season: 'todo el año',
+    familyFriendly: true,
+    hasKidsPlayArea: true,
+    indoor: true,
+    transport: 'car',  // Cabueñes, periferia de Gijón
   },
   {
     id: 'sideria-gascona',
@@ -232,7 +274,9 @@ export const activities = [
     tags: ['sidra', 'escanciado', 'fabada', 'cabrales'],
     season: 'todo el año',
     familyFriendly: false,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'walk',  // centro de Oviedo
   },
   {
     id: 'mercado-agroalimentario-cangas',
@@ -245,7 +289,9 @@ export const activities = [
     tags: ['vino Cangas', 'D.O.', 'productores locales', 'sábados'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'queso-cabrales-visita',
@@ -258,7 +304,9 @@ export const activities = [
     tags: ['queso Cabrales', 'cueva', 'D.O.P.', 'productor directo'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'car',
   },
   {
     id: 'pote-asturiano',
@@ -271,7 +319,9 @@ export const activities = [
     tags: ['fabada', 'pote asturiano', 'menú del día', 'interior'],
     season: 'otoño',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'car',
   },
 
   // ─── CULTURA Y TRADICIONES ─────────────────────────────────────────────────
@@ -287,7 +337,9 @@ export const activities = [
     tags: ['tradición', 'agosto', 'piragüismo', 'fiesta'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'vaqueirada',
@@ -300,7 +352,9 @@ export const activities = [
     tags: ['tradición', 'vaqueiros', 'julio', 'danza prima'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'gaita-asturiana',
@@ -313,7 +367,9 @@ export const activities = [
     tags: ['gaita', 'folk celta', 'fiestas patronales', 'verano'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'walk',  // suelen ser en plazas de pueblo o casco urbano
   },
   {
     id: 'fiesta-san-mateo',
@@ -326,7 +382,9 @@ export const activities = [
     tags: ['Oviedo', 'septiembre', 'verbena', 'gratuito'],
     season: 'otoño',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'walk',  // centro de Oviedo
   },
   {
     id: 'semana-grande-gijon',
@@ -339,7 +397,9 @@ export const activities = [
     tags: ['Gijón', 'agosto', 'conciertos', 'Cimadevilla'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'walk',  // Puerto deportivo / Cimadevilla
   },
   {
     id: 'museu-etnograficu',
@@ -348,11 +408,13 @@ export const activities = [
     location: 'Gijón',
     coords: [43.531, -5.676],
     description:
-      'Museo al aire libre con hórreos, cabañas y edificios históricos trasladados de toda Asturias. Entrada gratuita los jueves.',
+      'Museo al aire libre con hórreos, cabañas y edificios históricos trasladados de toda Asturias. Entrada gratuita los jueves. En el Parque Isabel la Católica.',
     tags: ['museo', 'gratis los jueves', 'etnografía', 'Gijón'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'walk',  // Parque Isabel, accesible a pie en Gijón
   },
   {
     id: 'prerromanico-asturiano',
@@ -365,7 +427,9 @@ export const activities = [
     tags: ['UNESCO', 'prerrománico', 'siglo IX', 'arquitectura'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'car',  // Monte Naranco y Lena, fuera del casco
   },
   {
     id: 'festival-interceltique',
@@ -378,7 +442,9 @@ export const activities = [
     tags: ['música celta', 'gaita', 'festival', 'verano'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
 
   // ─── DEPORTE Y AIRE LIBRE ──────────────────────────────────────────────────
@@ -390,11 +456,13 @@ export const activities = [
     location: 'Villaviciosa',
     coords: [43.540, -5.369],
     description:
-      'La ola más larga de Asturias (más de 400 m en días buenos). Reserva natural — acceso a pie. Varios clubs locales dan clases. Mejor en otoño-invierno.',
+      'La ola más larga de Asturias (más de 400 m en días buenos). Reserva natural — acceso a pie desde el aparcamiento. Varios clubs locales dan clases. Mejor en otoño-invierno.',
     tags: ['surf', 'ola larga', 'clases disponibles', 'reserva natural'],
     season: 'otoño',
     familyFriendly: false,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'surf-salinas',
@@ -407,7 +475,9 @@ export const activities = [
     tags: ['surf', 'paseo marítimo', 'bodyboard', 'fácil acceso'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'kayak-ria-villaviciosa',
@@ -420,7 +490,9 @@ export const activities = [
     tags: ['kayak', 'ría', 'naturaleza', 'aves'],
     season: 'primavera-verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'escalada-lavandera',
@@ -433,7 +505,9 @@ export const activities = [
     tags: ['escalada', 'roca caliza', 'todos los niveles', 'cerca de Oviedo'],
     season: 'todo el año',
     familyFriendly: false,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'bolos-celticos',
@@ -446,7 +520,9 @@ export const activities = [
     tags: ['deporte rural', 'tradición', 'gratuito', 'todos los fines de semana'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',  // torneos en pueblos del interior
   },
   {
     id: 'lucha-leonesa',
@@ -459,7 +535,9 @@ export const activities = [
     tags: ['deporte rural', 'tradición', 'fiestas patronales', 'corros'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'cicloturismo-via-verde-minera',
@@ -472,7 +550,9 @@ export const activities = [
     tags: ['bici', 'vía verde', 'patrimonio industrial', 'familias'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'trail-montaña-central',
@@ -485,7 +565,9 @@ export const activities = [
     tags: ['trail', 'montaña', 'carreras populares', 'noviembre'],
     season: 'todo el año',
     familyFriendly: false,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
 
   // ─── CON NIÑOS ─────────────────────────────────────────────────────────────
@@ -497,11 +579,13 @@ export const activities = [
     location: 'Teverga',
     coords: [43.147, -6.058],
     description:
-      'Réplicas de arte rupestre a escala real en cuevas artificiales. Taller de pigmentos naturales para niños incluido en la entrada. Mejor reservar online.',
+      'Réplicas de arte rupestre a escala real en cuevas artificiales. Taller de pigmentos naturales para niños incluido. Tiene zona de juegos exterior y merendero.',
     tags: ['prehistoria', 'arte rupestre', 'talleres', 'interior'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: true,
     indoor: true,
+    transport: 'car',
   },
   {
     id: 'aquarium-gijon',
@@ -514,7 +598,9 @@ export const activities = [
     tags: ['acuario', 'oceanarium', 'interior', 'lunes tranquilo'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'walk',  // Puerto deportivo de Gijón, paseo accesible
   },
   {
     id: 'museo-jurasico-asturias',
@@ -527,7 +613,9 @@ export const activities = [
     tags: ['dinosaurios', 'museo', 'costa jurásica', 'playa de huellas'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'car',
   },
   {
     id: 'huellas-dinosaurios-costa',
@@ -540,7 +628,9 @@ export const activities = [
     tags: ['dinosaurios', 'marea baja', 'gratis', 'paleontología'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'senda-oso-bici-familiar',
@@ -553,7 +643,9 @@ export const activities = [
     tags: ['bici', 'osos pardos', 'carril bici', 'familias'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'parque-isabel-gijon',
@@ -562,11 +654,13 @@ export const activities = [
     location: 'Gijón',
     coords: [43.534, -5.672],
     description:
-      'Gran pulmón verde urbano con el Museo del Pueblo, pista de atletismo, zoo de aves y zona de juegos. Gratis. El domingo por la mañana es el paseo clásico familiar.',
+      'Gran pulmón verde urbano con el Museo del Pueblo de Asturias, pista de atletismo, zoo de aves y zona de juegos para niños. Gratis. El domingo por la mañana es el paseo clásico familiar.',
     tags: ['gratis', 'parque urbano', 'zoo de aves', 'domingos'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: true,
     indoor: false,
+    transport: 'walk',  // accesible desde el centro de Gijón
   },
   {
     id: 'cueva-tito-bustillo',
@@ -579,7 +673,9 @@ export const activities = [
     tags: ['cueva', 'arte paleolítico', 'reserva previa', 'Ribadesella'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: true,
+    transport: 'car',
   },
   {
     id: 'playa-pozos-naturales',
@@ -592,7 +688,9 @@ export const activities = [
     tags: ['río', 'baño', 'gratis', 'verano'],
     season: 'verano',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
 
   // ─── EVENTOS Y AGENDA ──────────────────────────────────────────────────────
@@ -608,7 +706,9 @@ export const activities = [
     tags: ['próximamente', 'v2', 'en construcción'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'ferias-ganado',
@@ -621,7 +721,9 @@ export const activities = [
     tags: ['feria de ganado', 'tradicional', 'lunes/miércoles', 'Pola de Siero'],
     season: 'todo el año',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
   {
     id: 'vino-cangas-vendimia',
@@ -634,6 +736,8 @@ export const activities = [
     tags: ['vino', 'vendimia', 'septiembre-octubre', 'DO Cangas'],
     season: 'otoño',
     familyFriendly: true,
+    hasKidsPlayArea: false,
     indoor: false,
+    transport: 'car',
   },
 ];
